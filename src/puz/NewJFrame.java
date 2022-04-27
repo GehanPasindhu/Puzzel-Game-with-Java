@@ -1,0 +1,728 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ */
+package puz;
+
+import com.mysql.jdbc.ResultSet;
+import com.sun.speech.freetts.Voice;
+import com.sun.speech.freetts.VoiceManager;
+import java.awt.image.BufferedImage;
+import java.net.URL;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+
+/**
+ *
+ * @author pasin
+ */
+public class NewJFrame extends javax.swing.JFrame {
+
+    /**
+     * Creates new form NewJFrame
+     */
+    String username;
+
+    public NewJFrame() {
+        initComponents();
+    }
+
+    public void myUsername(String user) {
+        username = user;
+        System.out.println(username);
+        try {
+            ResultSet rs = (ResultSet) dbConnection.search("select * from user where username='" + username + "'");
+            if (rs.next()) {
+                int uid = rs.getInt("iduser");
+                System.out.println(uid);
+
+                ResultSet rs1 = (ResultSet) dbConnection.search("select*from stats where user='" + uid + "' order by level desc");
+
+                if (rs1.next()) {
+                    int level = rs1.getInt("level");
+
+                    if (level == 2) {
+                        level4.setEnabled(false);
+                        level5.setEnabled(false);
+                        level6.setEnabled(false);
+                        level7.setEnabled(false);
+                        level8.setEnabled(false);
+                    } else if (level == 3) {
+                        level5.setEnabled(false);
+                        level6.setEnabled(false);
+                        level7.setEnabled(false);
+                        level8.setEnabled(false);
+                    } else if (level == 4) {
+                        level6.setEnabled(false);
+                        level7.setEnabled(false);
+                        level8.setEnabled(false);
+                    } else if (level == 5) {
+                        level7.setEnabled(false);
+                        level8.setEnabled(false);
+                    } else if (level == 6) {
+                        level8.setEnabled(false);
+                    }
+
+                } else {
+                    level2.setEnabled(false);
+                    level3.setEnabled(false);
+                    level4.setEnabled(false);
+                    level5.setEnabled(false);
+                    level6.setEnabled(false);
+                    level7.setEnabled(false);
+                    level8.setEnabled(false);
+                }
+
+                ResultSet rs2 = (ResultSet) dbConnection.search("select*from stats where user='" + uid + "' order by level desc");
+
+                while (rs2.next()) {
+                    int level = rs2.getInt("level");
+
+                    switch (level) {
+                        case 1:
+                            score_1.setText(rs2.getString("score"));
+                            System.out.println(rs2.getString("score"));
+                            break;
+                        case 2:
+                            score_2.setText(rs2.getString("score"));
+                            System.out.println(rs2.getString("score"));
+                            break;
+                        case 3:
+                            score_3.setText(rs2.getString("score"));
+                            System.out.println(rs2.getString("score"));
+                            break;
+                        case 4:
+                            score_4.setText(rs2.getString("score"));
+                            System.out.println(rs2.getString("score"));
+                            break;
+                        case 5:
+                            score_5.setText(rs2.getString("score"));
+                            System.out.println(rs2.getString("score"));
+                            break;
+                        case 6:
+                            score_6.setText(rs2.getString("score"));
+                            System.out.println(rs2.getString("score"));
+                            break;
+                        case 7:
+                            score_7.setText(rs2.getString("score"));
+                            System.out.println(rs2.getString("score"));
+                            break;
+                        case 8:
+                            score_8.setText(rs2.getString("score"));
+                            System.out.println(rs2.getString("score"));
+                            break;
+                    }
+                }
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        leaderBoard();
+    }
+
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        jLabel1 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        level1 = new javax.swing.JButton();
+        level2 = new javax.swing.JButton();
+        level3 = new javax.swing.JButton();
+        level4 = new javax.swing.JButton();
+        level5 = new javax.swing.JButton();
+        level6 = new javax.swing.JButton();
+        level7 = new javax.swing.JButton();
+        level8 = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
+        labellevel8 = new javax.swing.JLabel();
+        labellevel7 = new javax.swing.JLabel();
+        labellevel6 = new javax.swing.JLabel();
+        labellevel5 = new javax.swing.JLabel();
+        labellevel4 = new javax.swing.JLabel();
+        labellevel3 = new javax.swing.JLabel();
+        labellevel2 = new javax.swing.JLabel();
+        labellevel1 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jPanel3 = new javax.swing.JPanel();
+        score_3 = new javax.swing.JLabel();
+        score_2 = new javax.swing.JLabel();
+        score_7 = new javax.swing.JLabel();
+        score_1 = new javax.swing.JLabel();
+        score_6 = new javax.swing.JLabel();
+        score_5 = new javax.swing.JLabel();
+        score_4 = new javax.swing.JLabel();
+        score_8 = new javax.swing.JLabel();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 36)); // NOI18N
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("My Puzzel Game");
+
+        jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel1.setPreferredSize(new java.awt.Dimension(430, 430));
+
+        jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("Select Level");
+
+        level1.setText("3 X 3");
+        level1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                level1ActionPerformed(evt);
+            }
+        });
+
+        level2.setText("4 X 4");
+        level2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                level2ActionPerformed(evt);
+            }
+        });
+
+        level3.setText("5 X 5");
+        level3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                level3ActionPerformed(evt);
+            }
+        });
+
+        level4.setText("6 X 6");
+        level4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                level4ActionPerformed(evt);
+            }
+        });
+
+        level5.setText("7 X 7");
+        level5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                level5ActionPerformed(evt);
+            }
+        });
+
+        level6.setText("8 X 8");
+        level6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                level6ActionPerformed(evt);
+            }
+        });
+
+        level7.setText("9X 9");
+        level7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                level7ActionPerformed(evt);
+            }
+        });
+
+        level8.setText("10 X 10");
+        level8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                level8ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(level5, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(level6, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(level7, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(level8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(level1, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(level2, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(level3, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(level4, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(level1, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(level2, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(level3, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(level4, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(level5, javax.swing.GroupLayout.DEFAULT_SIZE, 96, Short.MAX_VALUE)
+                    .addComponent(level6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(level7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(level8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Leader Board"));
+
+        labellevel8.setText("##########");
+        labellevel8.setBorder(javax.swing.BorderFactory.createTitledBorder("Level 8"));
+
+        labellevel7.setText("##########");
+        labellevel7.setBorder(javax.swing.BorderFactory.createTitledBorder("Level 7"));
+
+        labellevel6.setText("##########");
+        labellevel6.setBorder(javax.swing.BorderFactory.createTitledBorder("Level 6"));
+
+        labellevel5.setText("##########");
+        labellevel5.setBorder(javax.swing.BorderFactory.createTitledBorder("Level 5"));
+
+        labellevel4.setText("##########");
+        labellevel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Level 4"));
+
+        labellevel3.setText("##########");
+        labellevel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Level 3"));
+
+        labellevel2.setText("##########");
+        labellevel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Level 2"));
+
+        labellevel1.setText("##########");
+        labellevel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Level 1"));
+
+        jButton1.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
+        jButton1.setText("Instruction");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jButton2.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
+        jButton2.setText("My Score Chart");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(labellevel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(labellevel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(labellevel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(labellevel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(labellevel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(labellevel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(labellevel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(labellevel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(labellevel8, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(labellevel7, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(labellevel6, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(labellevel5, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(labellevel4, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(labellevel3, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(labellevel2, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(labellevel1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jButton2))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("My Score Board"));
+        jPanel3.setToolTipText("My Profile");
+
+        score_3.setBorder(javax.swing.BorderFactory.createTitledBorder("Level 3"));
+
+        score_2.setBorder(javax.swing.BorderFactory.createTitledBorder("Level 2"));
+
+        score_7.setBorder(javax.swing.BorderFactory.createTitledBorder("Level 7")); // NOI18N
+
+        score_1.setBorder(javax.swing.BorderFactory.createTitledBorder("Level 1"));
+
+        score_6.setBorder(javax.swing.BorderFactory.createTitledBorder("Level 6"));
+
+        score_5.setBorder(javax.swing.BorderFactory.createTitledBorder("Level 5"));
+
+        score_4.setBorder(javax.swing.BorderFactory.createTitledBorder("Level 4"));
+
+        score_8.setBorder(javax.swing.BorderFactory.createTitledBorder("Level 8"));
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(17, 17, 17)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(score_1, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(score_2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(score_4, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(score_5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(score_6, javax.swing.GroupLayout.DEFAULT_SIZE, 109, Short.MAX_VALUE)
+                            .addComponent(score_3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(score_7, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(score_8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(score_2, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(score_3, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(score_1, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(score_6, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(score_5, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(score_4, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(score_7, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(score_8, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(20, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 675, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 402, Short.MAX_VALUE)
+                            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+        );
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void level1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_level1ActionPerformed
+        BoardGUI3 bgui = new BoardGUI3();
+        bgui.userName(username);
+    }//GEN-LAST:event_level1ActionPerformed
+
+    private void level5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_level5ActionPerformed
+        BoardGUI7 bgui = new BoardGUI7();
+bgui.userName(username);
+    }//GEN-LAST:event_level5ActionPerformed
+
+    private void level6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_level6ActionPerformed
+        BoardGUI8 bgui = new BoardGUI8();
+bgui.userName(username);
+    }//GEN-LAST:event_level6ActionPerformed
+
+    private void level7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_level7ActionPerformed
+        BoardGUI9 bgui = new BoardGUI9();
+bgui.userName(username);
+    }//GEN-LAST:event_level7ActionPerformed
+
+    private void level8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_level8ActionPerformed
+        BoardGUI10 bgui = new BoardGUI10();
+bgui.userName(username);
+    }//GEN-LAST:event_level8ActionPerformed
+
+    private void level3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_level3ActionPerformed
+        BoardGUI5 bgui = new BoardGUI5();
+bgui.userName(username);
+    }//GEN-LAST:event_level3ActionPerformed
+
+    private void level2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_level2ActionPerformed
+        BoardGUI4 bgui = new BoardGUI4();
+bgui.userName(username);
+    }//GEN-LAST:event_level2ActionPerformed
+
+    private void level4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_level4ActionPerformed
+        BoardGUI6 bgui = new BoardGUI6();
+bgui.userName(username);
+    }//GEN-LAST:event_level4ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        System.setProperty("freetts.voices", "com.sun.speech.freetts.en.us.cmu_us_kal.KevinVoiceDirectory");
+        Voice voice;
+        VoiceManager voicemanager = VoiceManager.getInstance();
+        voice = voicemanager.getVoice(VOICENAME);
+        voice.allocate();
+
+        try {
+            voice.speak("This is an 8 Level Puzzel Game. Each level have its own time frame and user must try to finish the game before the time ends.");
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        try {
+            int level = 0;
+            int score = 0;
+
+            ResultSet rs = (ResultSet) dbConnection.search("select * from user where username ='" + username + "'");
+            if (rs.next()) {
+                int uid = rs.getInt("iduser");
+
+                ResultSet rs1 = (ResultSet) dbConnection.search("select * from stats where user ='" + uid + "'");
+
+                //  https://quickchart.io/chart?bkg=white&c={ type: 'bar', data: { labels: ['Q1', 'Q2', 'Q3', 'Q4'], datasets: [{ label: 'Users', data: [50, 60, 70, 180] }, { label: 'Revenue', data: [100, 200, 300, 400] }] }}
+                //  https://quickchart.io/chart?bkg=white&c={ type: 'bar', data: { labels: ['Q1', 'Q2', 'Q3', 'Q4'], datasets: [{ label: 'Users', data: [50, 60, 70, 180] }, { label: 'Revenue', data: [100, 200, 300, 400] }] }}
+                String labels = "";
+                String scores = "";
+                while (rs1.next()) {
+                    level = rs1.getInt("level");
+                    score = rs1.getInt("score");
+
+                    labels += "'" + level + "',";
+                    scores += score + ",";
+                }
+                String chartData = "{type:'bar',data:{labels:[" + labels + "],datasets:[{label:'score',data:[" + scores + "]}]}}";
+                String base = "https://quickchart.io/chart?c=" + chartData + "";
+                System.out.println(base);
+                
+                URL url = new URL(base);
+                BufferedImage bi = ImageIO.read(url);
+                ImageIcon chartImage = new ImageIcon(bi);
+                JFrame jp = new JFrame();
+                jp.add(new JLabel(chartImage));
+                jp.setVisible(true);
+                jp.setSize(600, 600);
+        jp.setLocationRelativeTo(null);
+            }
+
+//            DefaultPieDataset dpd = new DefaultPieDataset();
+//            dpd.setValue("Level" + level, score);
+//
+//            JFreeChart chart = ChartFactory.createPieChart("My Level", dpd);
+//            PiePlot p = (PiePlot) chart.getPlot();
+//            ChartFrame cframe = new ChartFrame("Test", chart);
+//            cframe.setVisible(true);
+//            cframe.setSize(300, 300);
+//            cframe.setLocationRelativeTo(null);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private static final String VOICENAME = "kevin16";
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(NewJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(NewJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(NewJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(NewJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new NewJFrame().setVisible(true);
+            }
+        });
+    }
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JLabel labellevel1;
+    private javax.swing.JLabel labellevel2;
+    private javax.swing.JLabel labellevel3;
+    private javax.swing.JLabel labellevel4;
+    private javax.swing.JLabel labellevel5;
+    private javax.swing.JLabel labellevel6;
+    private javax.swing.JLabel labellevel7;
+    private javax.swing.JLabel labellevel8;
+    private javax.swing.JButton level1;
+    private javax.swing.JButton level2;
+    private javax.swing.JButton level3;
+    private javax.swing.JButton level4;
+    private javax.swing.JButton level5;
+    private javax.swing.JButton level6;
+    private javax.swing.JButton level7;
+    private javax.swing.JButton level8;
+    private javax.swing.JLabel score_1;
+    private javax.swing.JLabel score_2;
+    private javax.swing.JLabel score_3;
+    private javax.swing.JLabel score_4;
+    private javax.swing.JLabel score_5;
+    private javax.swing.JLabel score_6;
+    private javax.swing.JLabel score_7;
+    private javax.swing.JLabel score_8;
+    // End of variables declaration//GEN-END:variables
+
+    private void leaderBoard() {
+        try {
+            ResultSet rs = (ResultSet) dbConnection.search("select * from stats where level=1 order by score asc limit 1 ");
+            while (rs.next()) {
+                int uid = rs.getInt("user");
+                ResultSet user = (ResultSet) dbConnection.search("select * from user where iduser='" + uid + "'");
+                while (user.next()) {
+                    labellevel1.setText(user.getString("username") + " Top Score : " + rs.getString("score"));
+                }
+            }
+
+            ResultSet rs1 = (ResultSet) dbConnection.search("select * from stats where level=2 order by score asc limit 1 ");
+            while (rs1.next()) {
+                int uid = rs1.getInt("user");
+                ResultSet user = (ResultSet) dbConnection.search("select * from user where iduser='" + uid + "'");
+                while (user.next()) {
+                    labellevel2.setText(user.getString("username") + " Top Score : " + rs1.getString("score"));
+                }
+            }
+
+            ResultSet rs2 = (ResultSet) dbConnection.search("select * from stats where level=3 order by score asc limit 1 ");
+            while (rs2.next()) {
+                int uid = rs2.getInt("user");
+                ResultSet user = (ResultSet) dbConnection.search("select * from user where iduser='" + uid + "'");
+                while (user.next()) {
+                    labellevel3.setText(user.getString("username") + " Top Score : " + rs2.getString("score"));
+                }
+            }
+
+            ResultSet rs3 = (ResultSet) dbConnection.search("select * from stats where level=4 order by score asc limit 1 ");
+            while (rs3.next()) {
+                int uid = rs3.getInt("user");
+                ResultSet user = (ResultSet) dbConnection.search("select * from user where iduser='" + uid + "'");
+                while (user.next()) {
+                    labellevel4.setText(user.getString("username") + " Top Score : " + rs3.getString("score"));
+                }
+            }
+
+            ResultSet rs4 = (ResultSet) dbConnection.search("select * from stats where level=5 order by score asc limit 1 ");
+            while (rs4.next()) {
+                int uid = rs4.getInt("user");
+                ResultSet user = (ResultSet) dbConnection.search("select * from user where iduser='" + uid + "'");
+                while (user.next()) {
+                    labellevel5.setText(user.getString("username") + " Top Score : " + rs4.getString("score"));
+                }
+            }
+
+            ResultSet rs5 = (ResultSet) dbConnection.search("select * from stats where level=6 order by score asc limit 1 ");
+            while (rs5.next()) {
+                int uid = rs5.getInt("user");
+                ResultSet user = (ResultSet) dbConnection.search("select * from user where iduser='" + uid + "'");
+                while (user.next()) {
+                    labellevel6.setText(user.getString("username") + " Top Score : " + rs5.getString("score"));
+                }
+            }
+
+            ResultSet rs6 = (ResultSet) dbConnection.search("select * from stats where level=7 order by score asc limit 1 ");
+            while (rs6.next()) {
+                int uid = rs6.getInt("user");
+                ResultSet user = (ResultSet) dbConnection.search("select * from user where iduser='" + uid + "'");
+                while (user.next()) {
+                    labellevel7.setText(user.getString("username") + " Top Score : " + rs6.getString("score"));
+                }
+            }
+
+            ResultSet rs7 = (ResultSet) dbConnection.search("select * from stats where level=8 order by score asc limit 1 ");
+            while (rs7.next()) {
+                int uid = rs7.getInt("user");
+                ResultSet user = (ResultSet) dbConnection.search("select * from user where iduser='" + uid + "'");
+                while (user.next()) {
+                    labellevel8.setText(user.getString("username") + " Top Score : " + rs7.getString("score"));
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+}
